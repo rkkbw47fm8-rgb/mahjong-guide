@@ -76,6 +76,95 @@ export default function WinningPage() {
         </div>
       </section>
 
+      {/* Payout Rules */}
+      <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
+        <h2 className="mb-2 text-xl font-bold text-red-400">
+          💰 Payout Rules — Who Pays What?
+        </h2>
+        <p className="mb-4 text-sm text-zinc-400">
+          Understanding how money changes hands is essential. In Cantonese Mahjong, the
+          payout depends on <strong className="text-white">who wins</strong> and{" "}
+          <strong className="text-white">how they win</strong>.
+        </p>
+
+        <div className="space-y-4">
+          {/* Self-Draw */}
+          <div className="rounded-lg border border-green-700 bg-green-900/10 p-4">
+            <h3 className="mb-1 font-semibold text-green-400">
+              🔄 Win by Self-Draw (自摸)
+            </h3>
+            <p className="text-sm text-zinc-300">
+              You draw the winning tile yourself. <strong className="text-white">All three opponents</strong>{" "}
+              each pay you <strong className="text-yellow-400">2× the hand value</strong>.
+            </p>
+            <div className="mt-2 rounded-lg border border-zinc-700 bg-zinc-800/50 p-3">
+              <p className="text-xs text-zinc-400">
+                <strong className="text-white">Example:</strong> Hand value = 3×. You win by self-draw.
+              </p>
+              <p className="text-sm text-green-400">
+                Each opponent pays: 3 × 2 = <strong>6×</strong> → Total you receive: <strong>18×</strong>
+              </p>
+            </div>
+          </div>
+
+          {/* Win by Discard */}
+          <div className="rounded-lg border border-red-700 bg-red-900/10 p-4">
+            <h3 className="mb-1 font-semibold text-red-400">
+              💥 Win by Discard (点炮)
+            </h3>
+            <p className="text-sm text-zinc-300">
+              Another player discards the tile you need.{" "}
+              <strong className="text-white">The discarding player</strong> pays{" "}
+              <strong className="text-yellow-400">3× the hand value</strong>{" "}
+              (covers all three opponents&apos; shares).
+            </p>
+            <div className="mt-2 rounded-lg border border-zinc-700 bg-zinc-800/50 p-3">
+              <p className="text-xs text-zinc-400">
+                <strong className="text-white">Example:</strong> Hand value = 3×. Player B discards your winning tile.
+              </p>
+              <p className="text-sm text-yellow-400">
+                Player B pays: 3 × 3 = <strong>9×</strong> → Total you receive: <strong>9×</strong>
+              </p>
+            </div>
+          </div>
+
+          {/* Comparison */}
+          <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-4">
+            <h3 className="mb-1 font-semibold text-white">
+              ⚖️ Self-Draw vs Discard — Same Hand Value
+            </h3>
+            <div className="mt-2 grid gap-2 sm:grid-cols-2">
+              <div className="rounded border border-green-800 bg-green-900/20 p-2 text-center">
+                <p className="text-sm font-bold text-green-400">Self-Draw (自摸)</p>
+                <p className="text-lg font-bold text-white">18×</p>
+                <p className="text-xs text-zinc-500">3 opponents × 6× each</p>
+              </div>
+              <div className="rounded border border-red-800 bg-red-900/20 p-2 text-center">
+                <p className="text-sm font-bold text-red-400">Discard (点炮)</p>
+                <p className="text-lg font-bold text-white">9×</p>
+                <p className="text-xs text-zinc-500">1 person pays all 9×</p>
+              </div>
+            </div>
+            <p className="mt-2 text-xs text-zinc-500">
+              For the same 3× hand: Self-draw pays 18× total (from 3 people), discard pays 9× (from 1 person).
+            </p>
+          </div>
+        </div>
+
+        {/* Special Payout Rules */}
+        <div className="mt-4 rounded-lg border border-yellow-700 bg-yellow-900/20 p-3">
+          <h4 className="mb-2 text-sm font-semibold text-yellow-300">
+            📋 Special Payout Rules
+          </h4>
+          <ul className="space-y-1 text-xs text-zinc-400">
+            <li>• <strong className="text-white">Robbing the Kong (抢杠):</strong> The player who was adding the Kong pays <strong className="text-yellow-300">all three shares</strong>.</li>
+            <li>• <strong className="text-white">12 Exposed Tiles (落地包自摸):</strong> If a player has 12+ tiles exposed, the one who lets them win with the 13th tile covers everything.</li>
+            <li>• <strong className="text-white">Concealed Kong:</strong> Each opponent pays <strong className="text-yellow-300">1×</strong> (self-draw bonus).</li>
+            <li>• <strong className="text-white">Exposed / Added Kong:</strong> Each opponent pays <strong className="text-yellow-300">0.5×</strong>.</li>
+          </ul>
+        </div>
+      </section>
+
       {/* Hand Structures */}
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
         <h2 className="mb-2 text-xl font-bold text-red-400">

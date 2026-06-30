@@ -1,3 +1,9 @@
+function TileImg({ src, alt, size = "h-10 w-10" }: { src: string; alt: string; size?: string }) {
+  return (
+    <img src={src} alt={alt} className={`${size} rounded border border-zinc-700 bg-white shadow-sm`} />
+  );
+}
+
 export default function BasicsPage() {
   return (
     <div className="space-y-12">
@@ -9,6 +15,84 @@ export default function BasicsPage() {
         </p>
       </section>
 
+      {/* Universal Winning Formula */}
+      <section className="rounded-xl border border-green-800 bg-green-900/10 p-6 text-center">
+        <h2 className="mb-2 text-xl font-bold text-green-400">🧮 Universal Winning Formula</h2>
+        <p className="mb-4 text-sm text-zinc-400">
+          Every winning hand is made of these 3 building blocks:
+        </p>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3">
+            <div className="text-lg font-bold text-yellow-400">Triplet</div>
+            <div className="text-xs text-zinc-500">刻子 — 3 identical tiles</div>
+            <div className="mt-2 flex justify-center gap-1">
+              <TileImg src="/tiles/wan_5.png" alt="" size="h-8 w-8" />
+              <TileImg src="/tiles/wan_5.png" alt="" size="h-8 w-8" />
+              <TileImg src="/tiles/wan_5.png" alt="" size="h-8 w-8" />
+            </div>
+          </div>
+          <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3">
+            <div className="text-lg font-bold text-blue-400">Sequence</div>
+            <div className="text-xs text-zinc-500">顺子 — 3 consecutive numbers</div>
+            <div className="mt-2 flex justify-center gap-1">
+              <TileImg src="/tiles/tong_3.png" alt="" size="h-8 w-8" />
+              <TileImg src="/tiles/tong_4.png" alt="" size="h-8 w-8" />
+              <TileImg src="/tiles/tong_5.png" alt="" size="h-8 w-8" />
+            </div>
+          </div>
+          <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3">
+            <div className="text-lg font-bold text-red-400">Pair</div>
+            <div className="text-xs text-zinc-500">将牌 — 2 identical tiles</div>
+            <div className="mt-2 flex justify-center gap-1">
+              <TileImg src="/tiles/tiao_1.png" alt="" size="h-8 w-8" />
+              <TileImg src="/tiles/tiao_1.png" alt="" size="h-8 w-8" />
+            </div>
+          </div>
+        </div>
+        <div className="mt-4 text-lg font-bold text-white">
+          4 × (Triplet <span className="text-zinc-500">or</span> Sequence) + 1 × Pair = <span className="text-green-400">WIN!</span>
+        </div>
+      </section>
+
+      {/* Complete Hand Example */}
+      <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
+        <h2 className="mb-3 text-xl font-bold text-red-400">Complete Hand Example (14 tiles)</h2>
+        <div className="flex flex-wrap items-center justify-center gap-1">
+          <TileImg src="/tiles/tong_2.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/tong_3.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/tong_4.png" alt="" size="h-9 w-9" />
+          <span className="mx-1 text-zinc-600">|</span>
+          <TileImg src="/tiles/tiao_6.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/tiao_6.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/tiao_6.png" alt="" size="h-9 w-9" />
+          <span className="mx-1 text-zinc-600">|</span>
+          <TileImg src="/tiles/wan_1.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/wan_2.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/wan_3.png" alt="" size="h-9 w-9" />
+          <span className="mx-1 text-zinc-600">|</span>
+          <TileImg src="/tiles/honor_east.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/honor_east.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/honor_east.png" alt="" size="h-9 w-9" />
+          <span className="mx-1 text-zinc-600">|</span>
+          <TileImg src="/tiles/honor_red.png" alt="" size="h-9 w-9" />
+          <TileImg src="/tiles/honor_red.png" alt="" size="h-9 w-9" />
+        </div>
+        <p className="mt-3 text-center text-xs text-zinc-500">
+          Sequence (顺子) | Triplet (刻子) | Sequence | Triplet | Pair (将牌) = <strong className="text-green-400">WIN!</strong>
+        </p>
+      </section>
+
+      {/* Ready to Win */}
+      <section className="rounded-xl border border-red-800 bg-red-900/10 p-5">
+        <h2 className="mb-2 text-xl font-bold text-red-400">Ready to WIN! — 听牌 (Ting Pai)</h2>
+        <p className="text-sm text-zinc-300">
+          When your hand needs just <strong className="text-white">one more tile</strong> to complete the winning pattern.
+        </p>
+        <p className="mt-2 text-xs text-zinc-500">
+          At this point, you&apos;re &ldquo;on a wait&rdquo; — any player who discards your needed tile lets you win immediately!
+        </p>
+      </section>
+
       {/* Pair */}
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
         <h2 className="mb-2 text-xl font-bold text-red-400">① Pair (对子)</h2>
@@ -16,9 +100,8 @@ export default function BasicsPage() {
           Two identical tiles. Also called the &ldquo;Eyes&rdquo; (将牌).
         </p>
         <div className="flex flex-wrap gap-2">
-          {["5万", "5万"].map((t) => (
-            <span key={t} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-xs text-red-300">{t}</span>
-          ))}
+          <TileImg src="/tiles/wan_5.png" alt="5万" />
+          <TileImg src="/tiles/wan_5.png" alt="5万" />
         </div>
         <p className="mt-3 text-xs text-zinc-600">
           A standard winning hand must have exactly one Pair.
@@ -29,47 +112,28 @@ export default function BasicsPage() {
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
         <h2 className="mb-2 text-xl font-bold text-red-400">② Sequence (顺子)</h2>
         <p className="mb-3 text-sm text-zinc-400">
-          Three consecutive numbers in the <em>same</em> suit. Numbered 1–2–3 up to 7–8–9.
+          Three consecutive numbers in the <strong className="text-white">same suit</strong>.
         </p>
         <div className="flex flex-wrap gap-2">
-          {["3筒", "4筒", "5筒"].map((t) => (
-            <span key={t} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-xs text-green-300">{t}</span>
-          ))}
+          <TileImg src="/tiles/tong_3.png" alt="3筒" />
+          <TileImg src="/tiles/tong_4.png" alt="4筒" />
+          <TileImg src="/tiles/tong_5.png" alt="5筒" />
         </div>
-        <div className="mt-3 space-y-1 text-xs text-zinc-500">
-          <p>✅ 1-2-3 Wan, 4-5-6 Bamboo, 7-8-9 Dot</p>
-          <p>❌ 2-3-5 Wan (not consecutive), 3万-4筒-5条 (mixed suits)</p>
-          <p className="font-medium text-yellow-500">
-            In this ruleset: Sequences must be drawn from the wall — you cannot call a discard to complete a Sequence (no &ldquo;eating&rdquo;).
-          </p>
-        </div>
+        <p className="mt-3 text-xs text-zinc-600">
+          In Cantonese Mahjong, Sequences can only be formed from <strong className="text-white">self-drawn</strong> tiles. You cannot call a discard to form a sequence (No Chow rule).
+        </p>
       </section>
 
       {/* Triplet */}
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
         <h2 className="mb-2 text-xl font-bold text-red-400">③ Triplet (刻子)</h2>
         <p className="mb-3 text-sm text-zinc-400">
-          Three identical tiles. Comes in two types:
+          Three identical tiles. Can be formed by Pung (calling a discard) or self-drawn.
         </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-            <h3 className="mb-2 text-sm font-semibold text-white">Concealed (暗刻)</h3>
-            <p className="mb-2 text-xs text-zinc-500">All three drawn from the wall &mdash; hidden in your hand.</p>
-            <div className="flex gap-2">
-              {["发", "发", "发"].map((t) => (
-                <span key={t} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-xs text-white">发</span>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-            <h3 className="mb-2 text-sm font-semibold text-white">Exposed (明刻 / Pung)</h3>
-            <p className="mb-2 text-xs text-zinc-500">Two in hand, called a discard to complete. Placed face-up on the table.</p>
-            <div className="flex gap-2">
-              {["西", "西", "西"].map((t) => (
-                <span key={t} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-xs text-white">西</span>
-              ))}
-            </div>
-          </div>
+        <div className="flex flex-wrap gap-2">
+          <TileImg src="/tiles/honor_red.png" alt="中" />          
+          <TileImg src="/tiles/honor_red.png" alt="中" />
+          <TileImg src="/tiles/honor_red.png" alt="中" />
         </div>
       </section>
 
@@ -77,32 +141,17 @@ export default function BasicsPage() {
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
         <h2 className="mb-2 text-xl font-bold text-red-400">④ Kong (杠)</h2>
         <p className="mb-3 text-sm text-zinc-400">
-          Four identical tiles — an upgraded Triplet.
+          Four identical tiles. Functions like a Triplet but needs an extra tile.
         </p>
-        <p className="mb-3 text-xs text-zinc-500">
-          After declaring a Kong, you must draw one replacement tile from the back of the wall,
-          then discard. Kongs pay separately from hand scoring.
-        </p>
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-3">
-            <h3 className="mb-1 text-sm font-semibold text-white">Concealed Kong (暗杠)</h3>
-            <p className="text-xs text-zinc-500">All 4 in hand. Kept face-down. <strong className="text-green-400">Worth 1× self-draw.</strong></p>
-            <p className="mt-1 text-xs text-yellow-500">Only Thirteen Orphans can rob a Concealed Kong.</p>
-          </div>
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-3">
-            <h3 className="mb-1 text-sm font-semibold text-white">Direct Kong (点杠)</h3>
-            <p className="text-xs text-zinc-500">3 in hand, called the 4th from a discard. All exposed. <strong className="text-yellow-400">Worth 0.5× self-draw.</strong></p>
-            <p className="mt-1 text-xs text-zinc-600">Cannot be robbed.</p>
-          </div>
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-3">
-            <h3 className="mb-1 text-sm font-semibold text-red-400">Added Kong (补杠) ⚠️</h3>
-            <p className="text-xs text-zinc-500">After a Pung, you draw the 4th. Add it to the exposed set. <strong className="text-yellow-400">Worth 0.5× self-draw.</strong></p>
-            <p className="mt-1 text-xs text-red-400">This is the only Kong type that can be <strong>robbed</strong>!</p>
-          </div>
+        <div className="flex flex-wrap gap-2">
+          <TileImg src="/tiles/honor_green.png" alt="发" />
+          <TileImg src="/tiles/honor_green.png" alt="发" />
+          <TileImg src="/tiles/honor_green.png" alt="发" />
+          <TileImg src="/tiles/honor_green.png" alt="发" />
         </div>
-        <div className="mt-4 rounded-lg border border-yellow-700 bg-yellow-900/20 p-3">
+        <div className="mt-3 rounded-lg border border-yellow-700 bg-yellow-900/20 p-3">
           <p className="text-xs text-yellow-300">
-            💡 Four Kongs in one hand = &ldquo;Eighteen Arhats&rdquo; (24×), one of the highest-scoring hands.
+            💡 Kong counts as one meld but uses 4 tiles. You must draw a replacement tile from the back of the wall.
           </p>
         </div>
       </section>
@@ -111,13 +160,8 @@ export default function BasicsPage() {
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
         <h2 className="mb-2 text-xl font-bold text-red-400">⑤ Meld (面子)</h2>
         <p className="mb-3 text-sm text-zinc-400">
-          A general term for Sequences, Triplets, and Kongs. The winning formula:
+          Any valid set of tiles — a Sequence, Triplet, or Kong. A winning hand needs 4 Melds + 1 Pair.
         </p>
-        <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-4 text-center">
-          <p className="text-lg font-bold text-white">
-            4 Melds + 1 Pair = 14 Tiles = Winning Hand 🏆
-          </p>
-        </div>
       </section>
 
       <div className="flex justify-between border-t border-zinc-800 pt-6">

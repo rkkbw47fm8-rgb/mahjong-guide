@@ -24,7 +24,6 @@ const navLinks = [
   { href: "/winning", label: "Winning" },
   { href: "/scoring", label: "Scoring" },
   { href: "/glossary", label: "Glossary" },
-  { href: "/mahjong-guide.html", label: "📖 Guide" },
 ];
 
 export default function RootLayout({

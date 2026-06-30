@@ -3,33 +3,33 @@ const suits = [
     id: "wan",
     name: "Characters (万子 / Wàn)",
     description: "Chinese numerals on top, 万 (10,000) below",
-    tiles: ["1万", "2万", "3万", "4万", "5万", "6万", "7万", "8万", "9万"],
+    nums: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   },
   {
     id: "tong",
     name: "Dots (筒子 / Tǒng)",
     description: 'Also called "Balls" or "Circles"',
-    tiles: ["1筒", "2筒", "3筒", "4筒", "5筒", "6筒", "7筒", "8筒", "9筒"],
+    nums: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   },
   {
     id: "tiao",
     name: "Bamboos (条子 / Tiáo)",
     description: 'Also called "Sticks" or "Sou (索)". Note: 1 Bamboo is the bird 🐦',
-    tiles: ["1条", "2条", "3条", "4条", "5条", "6条", "7条", "8条", "9条"],
+    nums: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   },
 ];
 
 const honors = [
-  { name: "East Wind (东风)", file: "honor_6_東.png", english: "East" },
-  { name: "South Wind (南风)", file: "honor_3_南.png", english: "South" },
-  { name: "West Wind (西风)", file: "honor_7_西.png", english: "West" },
-  { name: "North Wind (北风)", file: "honor_1_北.png", english: "North" },
+  { file: "honor_east.png", name: "East Wind (东风)", label: "East" },
+  { file: "honor_south.png", name: "South Wind (南风)", label: "South" },
+  { file: "honor_west.png", name: "West Wind (西风)", label: "West" },
+  { file: "honor_north.png", name: "North Wind (北风)", label: "North" },
 ];
 
 const dragons = [
-  { name: "Red Dragon (红中)", file: "honor_4_中.png", english: "Zhong" },
-  { name: "Green Dragon (发财)", file: "honor_5_發.png", english: "Fa" },
-  { name: "White Dragon (白板)", file: "honor_2_白.png", english: "Ban" },
+  { file: "honor_red.png", name: "Red Dragon (红中)", label: "Zhong" },
+  { file: "honor_green.png", name: "Green Dragon (发财)", label: "Fa" },
+  { file: "honor_white.png", name: "White Dragon (白板)", label: "Ban" },
 ];
 
 function TileImage({ src, alt }: { src: string; alt: string }) {
@@ -74,11 +74,11 @@ export default function TilesPage() {
               <h3 className="mb-1 font-semibold text-white">{suit.name}</h3>
               <p className="mb-4 text-xs text-zinc-600">{suit.description}</p>
               <div className="flex flex-wrap gap-3">
-                {suit.tiles.map((t) => (
+                {suit.nums.map((n) => (
                   <TileImage
-                    key={t}
-                    src={`/tiles/${suit.id}_${t.slice(0, 1)}_${t}.png`}
-                    alt={t}
+                    key={n}
+                    src={`/tiles/${suit.id}_${n}.png`}
+                    alt={`${suit.id} ${n}`}
                   />
                 ))}
               </div>
@@ -109,8 +109,8 @@ export default function TilesPage() {
             <div className="flex flex-wrap gap-3">
               {honors.map((h) => (
                 <div key={h.file} className="flex flex-col items-center gap-1">
-                  <TileImage src={`/tiles/${h.file}`} alt={h.english} />
-                  <span className="text-xs text-zinc-500">{h.english}</span>
+                  <TileImage src={`/tiles/${h.file}`} alt={h.label} />
+                  <span className="text-xs text-zinc-500">{h.label}</span>
                 </div>
               ))}
             </div>
@@ -127,8 +127,8 @@ export default function TilesPage() {
             <div className="flex flex-wrap gap-3">
               {dragons.map((d) => (
                 <div key={d.file} className="flex flex-col items-center gap-1">
-                  <TileImage src={`/tiles/${d.file}`} alt={d.english} />
-                  <span className="text-xs text-zinc-500">{d.english}</span>
+                  <TileImage src={`/tiles/${d.file}`} alt={d.label} />
+                  <span className="text-xs text-zinc-500">{d.label}</span>
                 </div>
               ))}
             </div>

@@ -40,8 +40,8 @@ export default function ScoringPage() {
         <div className="rounded-xl border border-yellow-800 bg-yellow-900/20 p-4">
           <h3 className="mb-1 text-sm font-semibold text-yellow-300">📋 Notes</h3>
           <ul className="space-y-1 text-xs text-zinc-400">
-            <li>• Kong bonuses are separate from hand multipliers.</li>
-            <li>• Concealed Kong = 1× self-draw, Exposed/Added = 0.5×</li>
+            <li>• Kong bonuses are separate — added to hand score, not multiplied.</li>
+            <li>• Exposed Kong (明杠) = 1 pt each. Concealed Kong (暗杠) = 2 pts each. Direct Kong (点杠) = 3 pts from discarder.</li>
             <li>• Multiple hand types multiply together (with exceptions).</li>
             <li>• Seven Pairs does not stack with All Triplets / Four Happiness.</li>
           </ul>
@@ -53,7 +53,7 @@ export default function ScoringPage() {
             <li>• Bottom of the Sea (last tile): hand multiplier ×2</li>
             <li>• Flower on Kong: hand multiplier ×2</li>
             <li>• Both Sea + Kong: hand multiplier ×4</li>
-            <li>• 12 exposed tiles (3 public melds): max 6×, payer covers all</li>
+  
           </ul>
         </div>
       </section>
@@ -113,25 +113,31 @@ export default function ScoringPage() {
         </table>
       </div>
 
-      {/* Kong scoring reminder */}
+      {/* Kong scoring */}
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-        <h2 className="mb-3 text-lg font-bold text-white">Kong Scoring Recap</h2>
+        <h2 className="mb-3 text-lg font-bold text-white">Kong Payouts</h2>
+        <p className="mb-3 text-sm text-zinc-400">
+          Kong bonuses are paid separately — not multiplied with your hand score.
+        </p>
         <div className="grid gap-3 sm:grid-cols-3">
           <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3 text-center">
-            <p className="text-lg font-bold text-green-400">1×</p>
-            <p className="text-xs text-zinc-400">Concealed Kong</p>
+            <p className="text-lg font-bold text-green-400">1 pt</p>
+            <p className="text-xs text-zinc-400">Exposed Kong (明杠)</p>
+            <p className="mt-1 text-xs text-zinc-600">Each opponent pays</p>
           </div>
           <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3 text-center">
-            <p className="text-lg font-bold text-yellow-400">0.5×</p>
-            <p className="text-xs text-zinc-400">Direct Kong</p>
+            <p className="text-lg font-bold text-yellow-400">2 pts</p>
+            <p className="text-xs text-zinc-400">Concealed Kong (暗杠)</p>
+            <p className="mt-1 text-xs text-zinc-600">Each opponent pays</p>
           </div>
-          <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3 text-center">
-            <p className="text-lg font-bold text-yellow-400">0.5×</p>
-            <p className="text-xs text-zinc-400">Added Kong</p>
+          <div className="rounded-lg border border-red-700 bg-red-900/10 p-3 text-center">
+            <p className="text-lg font-bold text-red-400">3 pts</p>
+            <p className="text-xs text-zinc-400">Direct Kong (点杠)</p>
+            <p className="mt-1 text-xs text-zinc-600">Only the discarder pays</p>
           </div>
         </div>
-        <p className="mt-3 text-xs text-zinc-500">
-          Kong payouts are calculated separately and added to the hand score.
+        <p className="mt-3 rounded-lg border border-yellow-700 bg-yellow-900/20 p-2 text-xs text-yellow-300">
+          💡 Kong points are <strong>not multiplied</strong> — they&apos;re added directly to your hand score.
         </p>
       </section>
 

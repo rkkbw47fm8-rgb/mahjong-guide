@@ -115,15 +115,14 @@ export default function WinningPage() {
             <p className="text-sm text-zinc-300">
               Another player discards the tile you need.{" "}
               <strong className="text-white">The discarding player</strong> pays{" "}
-              <strong className="text-yellow-400">3× the hand value</strong>{" "}
-              (covers all three opponents&apos; shares).
+              <strong className="text-yellow-400">2× the hand value</strong>.
             </p>
             <div className="mt-2 rounded-lg border border-zinc-700 bg-zinc-800/50 p-3">
               <p className="text-xs text-zinc-400">
                 <strong className="text-white">Example:</strong> Hand value = 3×. Player B discards your winning tile.
               </p>
               <p className="text-sm text-yellow-400">
-                Player B pays: 3 × 3 = <strong>9×</strong> → Total you receive: <strong>9×</strong>
+                Player B pays: 3 × 2 = <strong>6×</strong> → Total you receive: <strong>6×</strong>
               </p>
             </div>
           </div>
@@ -141,12 +140,12 @@ export default function WinningPage() {
               </div>
               <div className="rounded border border-red-800 bg-red-900/20 p-2 text-center">
                 <p className="text-sm font-bold text-red-400">Discard (点炮)</p>
-                <p className="text-lg font-bold text-white">9×</p>
-                <p className="text-xs text-zinc-500">1 person pays all 9×</p>
+                <p className="text-lg font-bold text-white">6×</p>
+                <p className="text-xs text-zinc-500">Discarder pays 2× hand value</p>
               </div>
             </div>
             <p className="mt-2 text-xs text-zinc-500">
-              For the same 3× hand: Self-draw pays 18× total (from 3 people), discard pays 9× (from 1 person).
+              Same 3× hand: Self-draw = 18× (3 people × 6×). Discard = 6× (1 person pays 2×).
             </p>
           </div>
         </div>
@@ -157,10 +156,10 @@ export default function WinningPage() {
             📋 Special Payout Rules
           </h4>
           <ul className="space-y-1 text-xs text-zinc-400">
-            <li>• <strong className="text-white">Robbing the Kong (抢杠):</strong> The player who was adding the Kong pays <strong className="text-yellow-300">all three shares</strong>.</li>
-            <li>• <strong className="text-white">12 Exposed Tiles (落地包自摸):</strong> If a player has 12+ tiles exposed, the one who lets them win with the 13th tile covers everything.</li>
-            <li>• <strong className="text-white">Concealed Kong:</strong> Each opponent pays <strong className="text-yellow-300">1×</strong> (self-draw bonus).</li>
-            <li>• <strong className="text-white">Exposed / Added Kong:</strong> Each opponent pays <strong className="text-yellow-300">0.5×</strong>.</li>
+            <li>• <strong className="text-white">Robbing the Kong (抢杠):</strong> The robbed player pays <strong className="text-yellow-300">6× the hand value</strong> (covers all three shares).</li>
+            <li>• <strong className="text-white">Exposed Kong (明杠):</strong> Each opponent pays <strong className="text-yellow-300">1 point</strong>.</li>
+            <li>• <strong className="text-white">Concealed Kong (暗杠):</strong> Each opponent pays <strong className="text-yellow-300">2 points</strong>.</li>
+            <li>• <strong className="text-white">Direct Kong (点杠):</strong> The player who discarded the tile pays <strong className="text-yellow-300">3 points</strong>.</li>
           </ul>
         </div>
       </section>

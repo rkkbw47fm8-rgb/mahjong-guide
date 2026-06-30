@@ -33,7 +33,7 @@ export default function Home() {
           { num: "136", label: "Tiles in a Set" },
           { num: "23", label: "Winning Hands" },
           { num: "4", label: "Players per Game" },
-          { num: "¥72", label: "Cost to Start" },
+          { num: "108", label: "Suit Tiles" },
         ].map((s) => (
           <div
             key={s.label}

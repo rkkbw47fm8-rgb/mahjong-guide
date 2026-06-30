@@ -82,7 +82,7 @@ export default function WinningPage() {
           💰 Payout Rules — Who Pays What?
         </h2>
         <p className="mb-4 text-sm text-zinc-400">
-          Understanding how money changes hands is essential. In Cantonese Mahjong, the
+          Understanding how money changes hands is essential. In Chinese Mahjong, the
           payout depends on <strong className="text-white">who wins</strong> and{" "}
           <strong className="text-white">how they win</strong>.
         </p>

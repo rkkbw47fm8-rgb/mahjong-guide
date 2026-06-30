@@ -4,7 +4,7 @@ export default function GamePage() {
       <section>
         <h1 className="mb-2 text-3xl font-bold">Setting Up a Game</h1>
         <p className="text-zinc-400">
-          A standard game of Cantonese Mahjong involves 4 players. Here&apos;s how
+          A standard game of Chinese Mahjong involves 4 players. Here&apos;s how
           to get started.
         </p>
       </section>

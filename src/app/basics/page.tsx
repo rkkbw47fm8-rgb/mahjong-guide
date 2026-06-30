@@ -120,7 +120,7 @@ export default function BasicsPage() {
           <TileImg src="/tiles/tong_5.png" alt="5筒" />
         </div>
         <p className="mt-3 text-xs text-zinc-600">
-          In Cantonese Mahjong, Sequences can only be formed from <strong className="text-white">self-drawn</strong> tiles. You cannot call a discard to form a sequence (No Chow rule).
+          In Chinese Mahjong, Sequences can only be formed from <strong className="text-white">self-drawn</strong> tiles. You cannot call a discard to form a sequence (No Chow rule).
         </p>
       </section>
 

@@ -8,7 +8,7 @@ export default function Home() {
           Learn Chinese Mahjong
         </h1>
         <p className="mx-auto max-w-2xl text-lg text-zinc-400">
-          A complete, beginner-friendly guide to Cantonese-style Mahjong.
+          A complete, beginner-friendly guide to Chinese Mahjong.
           No prior knowledge needed. Start playing with friends today.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">

@@ -48,7 +48,7 @@ export default function TilesPage() {
       <section>
         <h1 className="mb-2 text-3xl font-bold">Mahjong Tiles</h1>
         <p className="text-zinc-400">
-          A standard Cantonese Mahjong set has{" "}
+          A standard Chinese Mahjong set has{" "}
           <strong className="text-white">136 tiles</strong>. They fall into two
           categories: <strong className="text-white">Suit Tiles</strong> and{" "}
           <strong className="text-white">Honor Tiles</strong>.

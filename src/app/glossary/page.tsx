@@ -92,7 +92,7 @@ export default function GlossaryPage() {
       ))}
 
       <div className="flex justify-between border-t border-zinc-800 pt-6">
-        <a href="/scoring" className="text-sm text-zinc-500 transition hover:text-white">← Scoring</a>
+        <a href="/scoring-chart.html" className="text-sm text-zinc-500 transition hover:text-white">← Scoring</a>
         <div />
       </div>
     </div>

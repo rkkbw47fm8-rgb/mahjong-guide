@@ -19,7 +19,7 @@ export default function Home() {
             Start Learning →
           </a>
           <a
-            href="/scoring"
+            href="/scoring-chart.html"
             className="rounded-lg border border-zinc-700 px-6 py-3 font-medium text-zinc-300 transition hover:bg-zinc-800"
           >
             View Scoring Table
@@ -84,7 +84,7 @@ export default function Home() {
               emoji: "📊",
               title: "Scoring Table",
               desc: "23 hand types with multipliers — from 3x to 50x.",
-              href: "/scoring",
+              href: "/scoring-chart.html",
             },
           ].map((c) => (
             <a

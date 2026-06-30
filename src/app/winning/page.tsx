@@ -198,7 +198,7 @@ export default function WinningPage() {
 
       <div className="flex justify-between border-t border-zinc-800 pt-6">
         <a href="/operations" className="text-sm text-zinc-500 transition hover:text-white">← Table Operations</a>
-        <a href="/scoring" className="rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-700">Next: Scoring →</a>
+        <a href="/scoring-chart.html" className="rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-700">Next: Scoring →</a>
       </div>
     </div>
   );

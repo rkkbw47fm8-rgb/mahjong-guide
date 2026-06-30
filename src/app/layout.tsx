@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Chinese Mahjong Rules — Learn How to Play",
   description:
     "A complete beginner's guide to Cantonese-style Chinese Mahjong. Learn tiles, combinations, scoring, and how to play in minutes.",
+  verification: {
+    google: "j3MhYDujUB_BMvBYX0JTB69IL6cKUvp5jkM68ISMgsE",
+  },
   openGraph: {
     title: "Chinese Mahjong Rules — Learn How to Play",
     description: "Master the tiles, melds, and scoring. The #1 guide for beginners.",

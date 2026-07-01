@@ -145,14 +145,14 @@ export default function ScoringPage() {
                     <br />
                     <span className="text-xs text-zinc-500">{hand.name}</span>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-2">
-                    <div className="flex flex-wrap gap-0.5">
+                  <td className="px-3 py-2">
+                    <div className="flex flex-nowrap gap-0">
                       {hand.tiles.map((code, ti) => (
                         <img
                           key={`${code}-${ti}`}
                           src={tileCodeToPath(code)}
                           alt={code}
-                          className="inline-block h-10 w-8 object-contain"
+                          className="inline-block h-9 w-7 object-contain"
                           loading="lazy"
                         />
                       ))}

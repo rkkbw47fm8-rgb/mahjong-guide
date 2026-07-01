@@ -13,7 +13,7 @@ function tileCodeToPath(code: string): string {
 }
 
 const COLORS: Record<number, string> = {
-  0: "#888", 3: "#e87070", 4: "#e89050", 6: "#d09030", 7: "#c08030",
+  1: "#9ca3af", 3: "#e87070", 4: "#e89050", 6: "#d09030", 7: "#c08030",
   8: "#b07030", 9: "#d06060", 10: "#c05050", 11: "#b04040",
   13: "#a03030", 16: "#902828", 20: "#802020", 24: "#701818",
 };
@@ -27,7 +27,7 @@ interface HandRow {
 }
 
 const HANDS: HandRow[] = [
-  { mult: 0, name: "平胡", engName: "Ping Hu (All Sequences)", tiles: ["w1","w2","w3","t4","t5","t6","w2","w3","w4","b7","b8","b9","h6","h6"], desc: "4 sequences + 1 pair — basic winning hand" },
+  { mult: 1, name: "平胡", engName: "Ping Hu (All Sequences)", tiles: ["w1","w2","w3","t4","t5","t6","w2","w3","w4","b7","b8","b9","h6","h6"], desc: "4 sequences + 1 pair — basic winning hand" },
   { mult: 3, name: "混一色", engName: "Mixed One Suit", tiles: ["w2","w3","w4","w5","w5","w5","w7","w8","w9","h6","h6","h6","h3","h3"], desc: "One suit + honor tiles" },
   { mult: 3, name: "碰碰胡", engName: "Pung Pung (All Triplets)", tiles: ["w1","w1","w1","w2","w2","w2","t3","t3","t3","b4","b4","b4","h5","h5"], desc: "4 triplets/kongs + 1 pair" },
   { mult: 4, name: "七小对", engName: "Seven Pairs", tiles: ["w1","w1","w2","w2","w3","w3","t4","t4","t5","t5","h4","h4","h3","h3"], desc: "7 pairs. No stacking with All Triplets" },

@@ -145,8 +145,8 @@ export default function ScoringPage() {
                     <br />
                     <span className="text-xs text-zinc-500">{hand.name}</span>
                   </td>
-                  <td className="px-1 py-2 align-top">
-                    <div className="flex flex-nowrap gap-0">
+                  <td className="px-1 py-2 align-top" style={{minWidth: 320}}>
+                    <div className="flex flex-nowrap gap-0 flex-shrink-0">
                       {hand.tiles.map((code, ti) => (
                         <img
                           key={`${code}-${ti}`}
@@ -158,7 +158,7 @@ export default function ScoringPage() {
                       ))}
                     </div>
                   </td>
-                  <td className="hidden px-3 py-2.5 text-zinc-400 sm:table-cell align-top">
+                  <td className="hidden px-3 py-2.5 text-zinc-400 sm:table-cell align-top" style={{minWidth: 200}}>
                     {hand.desc}
                   </td>
                 </tr>

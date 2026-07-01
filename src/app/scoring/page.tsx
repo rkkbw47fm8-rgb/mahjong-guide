@@ -1,148 +1,196 @@
-export default function ScoringPage() {
-  const hands = [
-    { n: 1, name: "Pung Pung (碰碰胡)", mult: "3×", desc: "All four melds are Triplets or Kongs. No Sequences." },
-    { n: 2, name: "Mixed One Suit (混一色)", mult: "3×", desc: "One suit + Honor tiles only." },
-    { n: 3, name: "Seven Pairs (七小对)", mult: "4×", desc: "Seven Pairs. Cannot combine with All Triplets or Big Four Happiness." },
-    { n: 4, name: "Full Flush (清一色)", mult: "6×", desc: "All tiles are from ONE suit. No Honors." },
-    { n: 5, name: "Pure Straight (一条龙)", mult: "6× (Mixed) / 9× (Pure)", desc: "A full 1–9 sequence in one suit. Mixed = 2 suits, Pure = 1 suit." },
-    { n: 6, name: "Luxury Seven Pairs (豪华七对)", mult: "8× / 16× / 32×", desc: "Seven Pairs with 4 identical tiles. Double = 16×, Triple = 32×." },
-    { n: 7, name: "Small Three Dragons (小三元)", mult: "9×", desc: "Two Triplets + one Pair of Dragons (中发白). Pattern: 3-3-2." },
-    { n: 8, name: "Terminals (幺九)", mult: "9× / 12× / 20×", desc: "Only 1s and 9s. Mixed = 9×, Half = 12×, Pure = 20×." },
-    { n: 9, name: "Four Concealed Triplets (四暗刻)", mult: "10×", desc: "All four melds are concealed Triplets. Pattern: 3-3-3-3-2." },
-    { n: 10, name: "Thirteen Orphans (十三幺)", mult: "13×", desc: "One of each terminal and honor: 1s, 9s, Winds, Dragons + one duplicate." },
-    { n: 11, name: "Small Four Winds (小四喜)", mult: "16×", desc: "Three Triplets + one Pair of Winds. Pattern: 3-3-3-2." },
-    { n: 12, name: "Big Three Dragons (大三元)", mult: "16×", desc: "Three Triplets of all three Dragons. Pattern: 3-3-3." },
-    { n: 13, name: "Seven Consecutive Pairs (七连对)", mult: "16×", desc: "7 consecutive Pairs. Extremely rare." },
-    { n: 14, name: "Red Peacock (红孔雀)", mult: "20×", desc: "Bamboo tiles 1, 5, 7, 9 + Red Dragon only. All must be present." },
-    { n: 15, name: "Blue One Se (蓝一色)", mult: "20×", desc: "East, South, West, North, White, and 8 Dot only. Cannot combine with All Honors." },
-    { n: 16, name: "Green One Se (绿一色)", mult: "20×", desc: "Bamboo tiles 2, 3, 4, 6, 8 + Green Dragon only." },
-    { n: 17, name: "All Honors (字一色)", mult: "20×", desc: "All tiles are Winds and Dragons. No suits at all." },
-    { n: 18, name: "Big Four Winds (大四喜)", mult: "24×", desc: "Four Triplets of all four Winds." },
-    { n: 19, name: "Eighteen Arhats (十八罗汉)", mult: "24×", desc: "Four Kongs (18 tiles in hand). The ultimate meld-based hand." },
-    { n: 20, name: "Nine Gates (九连宝灯)", mult: "24×", desc: "Concealed hand only. Has all nine numbers of one suit + any 9th tile." },
-    { n: 21, name: "Seven Stars (七星)", mult: "24×", desc: "Seven different honor tiles. Cannot stack with All Triplets or Four Happiness." },
-    { n: 22, name: "Earthly Hand (地胡)", mult: "50×", desc: "Non-dealer wins on first turn. By discard or self-draw on first draw." },
-    { n: 23, name: "Heavenly Hand (天胡)", mult: "50×", desc: "Dealer wins with initial 14 tiles before playing." },
+"use client";
+
+function tileCodeToPath(code: string): string {
+  const suit = code[0];
+  const num = code.slice(1);
+  const map: Record<string, string> = {
+    h1: "honor_east", h2: "honor_south", h3: "honor_west", h4: "honor_north",
+    h5: "honor_red", h6: "honor_green", h7: "honor_white",
+    w: "wan", t: "tiao", b: "tong",
+  };
+  if (suit === "h") return `/tiles/${map[code]}.png`;
+  return `/tiles/${map[suit]}_${num}.png`;
+}
+
+const COLORS: Record<number, string> = {
+  0: "#888", 3: "#e87070", 4: "#e89050", 6: "#d09030", 7: "#c08030",
+  8: "#b07030", 9: "#d06060", 10: "#c05050", 11: "#b04040",
+  13: "#a03030", 16: "#902828", 20: "#802020", 24: "#701818",
+};
+
+interface HandRow {
+  mult: number;
+  name: string;       // Chinese
+  engName: string;    // English
+  tiles: string[];
+  desc: string;       // Chinese
+}
+
+const HANDS: HandRow[] = [
+  { mult: 0, name: "平胡", engName: "Ping Hu (All Sequences)", tiles: ["w1","w2","w3","t4","t5","t6","w2","w3","w4","b7","b8","b9","h6","h6"], desc: "4 sequences + 1 pair — basic winning hand" },
+  { mult: 3, name: "混一色", engName: "Mixed One Suit", tiles: ["w2","w3","w4","w5","w5","w5","w7","w8","w9","h6","h6","h6","h3","h3"], desc: "One suit + honor tiles" },
+  { mult: 3, name: "碰碰胡", engName: "Pung Pung (All Triplets)", tiles: ["w1","w1","w1","w2","w2","w2","t3","t3","t3","b4","b4","b4","h5","h5"], desc: "4 triplets/kongs + 1 pair" },
+  { mult: 4, name: "七小对", engName: "Seven Pairs", tiles: ["w1","w1","w2","w2","w3","w3","t4","t4","t5","t5","h4","h4","h3","h3"], desc: "7 pairs. No stacking with All Triplets" },
+  { mult: 6, name: "混碰", engName: "Mixed Pung Pung", tiles: ["w1","w1","w1","w2","w2","w2","w6","w6","w6","h6","h6","h6","h3","h3"], desc: "4 triplets + honor tiles" },
+  { mult: 6, name: "清一色", engName: "Full Flush", tiles: ["w1","w2","w3","w4","w4","w4","w5","w5","w5","w6","w6","w6","w7","w7"], desc: "All tiles from ONE suit, no honors" },
+  { mult: 6, name: "混一条龙", engName: "Mixed Pure Straight", tiles: ["w1","w2","w3","w4","w6","w7","w8","w9","h6","h6","h6","h2","h2","h2"], desc: "One suit 1-9 + honors" },
+  { mult: 7, name: "混七对", engName: "Mixed Seven Pairs", tiles: ["w1","w1","w2","w2","w6","w6","w7","w7","h4","h4","h2","h2","h1","h1"], desc: "One suit + honors, 7 pairs" },
+  { mult: 8, name: "豪华七对", engName: "Luxury Seven Pairs", tiles: ["w1","w1","w2","w2","w3","w3","t5","t5","t5","t5","h4","h4","h3","h3"], desc: "7 pairs with 4 identical tiles" },
+  { mult: 9, name: "清碰", engName: "Pure Pung Pung", tiles: ["w1","w1","w1","w2","w2","w2","w4","w4","w4","w6","w6","w6","w7","w7"], desc: "All triplets from one suit" },
+  { mult: 9, name: "小三元", engName: "Small Three Dragons", tiles: ["h4","h4","h4","h5","h5","h5","h2","h2","h2","t1","t1","t1","t3","t3"], desc: "2 dragon triplets + 1 dragon pair" },
+  { mult: 9, name: "清一条龙", engName: "Pure Straight", tiles: ["t1","t2","t3","t4","t5","t6","t7","t8","t9","t3","t3","t3","t5","t5"], desc: "Full 1-9 sequence in one suit" },
+  { mult: 9, name: "混么九", engName: "Mixed Terminals", tiles: ["w1","w1","w1","w9","w9","w9","t9","t9","t9","h6","h6","h6","h7","h7"], desc: "1s and 9s only + honors" },
+  { mult: 10, name: "四暗刻", engName: "Four Concealed Triplets", tiles: ["w1","w1","w1","b9","b9","b9","h2","h2","h2","h6","h6","h6","t4","t4"], desc: "All 4 melds are concealed triplets" },
+  { mult: 11, name: "混豪七对", engName: "Mixed Luxury 7 Pairs", tiles: ["w1","w1","w2","w2","w3","w3","w6","w6","h4","h4","h2","h2","h1","h1"], desc: "One suit + honors, 7 pairs, 1 quad" },
+  { mult: 13, name: "十三幺", engName: "Thirteen Orphans", tiles: ["w1","w9","t1","t9","b1","b9","h1","h2","h3","h4","h5","h6","h7","w1"], desc: "1 terminal/honor each + 1 duplicate" },
+  { mult: 13, name: "小四喜", engName: "Small Four Winds", tiles: ["h6","h6","h6","h3","h3","h3","h7","h7","h7","h1","h1","h1","h2","h2"], desc: "3 wind triplets + 1 wind pair" },
+  { mult: 13, name: "大三元", engName: "Big Three Dragons", tiles: ["h4","h4","h4","h5","h5","h5","h2","h2","h2","t2","t2","t2","t4","t4"], desc: "Triplets of all 3 dragons" },
+  { mult: 16, name: "连七对", engName: "Seven Consecutive Pairs", tiles: ["w1","w1","w2","w2","w3","w3","w4","w4","w5","w5","w6","w6","w7","w7"], desc: "7 consecutive pairs in one suit" },
+  { mult: 16, name: "双豪七对", engName: "Double Luxury 7 Pairs", tiles: ["w1","w1","w2","w2","w3","w3","w4","w4","w5","w5","w6","w6","b6","b6"], desc: "7 pairs with 2 quads" },
+  { mult: 16, name: "红孔雀", engName: "Red Peacock", tiles: ["b1","b1","b1","b5","b5","b5","b7","b7","b7","b9","b9","b9","h4","h4"], desc: "Bamboo 1,5,7,9 + Red Dragon only" },
+  { mult: 16, name: "绿一色", engName: "Green One Suit", tiles: ["b2","b2","b2","b3","b3","b3","b4","b4","b4","b6","b6","b6","h5","h5"], desc: "Bamboo 2,3,4,6,8 + Green Dragon" },
+  { mult: 20, name: "字一色", engName: "All Honors", tiles: ["h6","h6","h6","h3","h3","h3","h7","h7","h7","h4","h4","h4","h2","h2"], desc: "All tiles are winds and dragons" },
+  { mult: 20, name: "清幺九", engName: "Pure Terminals", tiles: ["w1","w1","w1","w9","w9","w9","t1","t1","t1","t9","t9","t9","b1","b1"], desc: "1s and 9s only (no honors)" },
+  { mult: 24, name: "九莲宝灯", engName: "Nine Gates", tiles: ["t1","t1","t1","t2","t3","t4","t5","t6","t7","t8","t9","t9","t9","t2"], desc: "Concealed—9 gates ready for any 9th tile" },
+  { mult: 24, name: "十八罗汉", engName: "Eighteen Arhats", tiles: ["w1","w1","w1","w1","t3","t3","t3","t3","b5","b5","b5","b5","h6","h6"], desc: "4 kongs (18 tiles in hand)" },
+  { mult: 24, name: "大四喜", engName: "Big Four Winds", tiles: ["h6","h6","h6","h3","h3","h3","h7","h7","h7","h1","h1","h1","w1","w1"], desc: "Triplets of all 4 winds" },
+  { mult: 24, name: "三豪七对", engName: "Triple Luxury 7 Pairs", tiles: ["w1","w1","w2","w2","w3","w3","w4","w4","w5","w5","w6","w6","b6","b6"], desc: "7 pairs with 3 quads" },
+  { mult: 24, name: "大七星", engName: "Big Seven Stars", tiles: ["h6","h6","h7","h7","h3","h3","h1","h1","h4","h4","h5","h5","h2","h2"], desc: "7 honor pairs — all 7 honors" },
+];
+
+function Legend({ colors }: { colors: Record<number, string> }) {
+  const legendItems = [
+    { range: "3-4×", color: colors[3], bg: "bg-red-50" },
+    { range: "6×", color: colors[6], bg: "bg-orange-50" },
+    { range: "7-8×", color: colors[8], bg: "bg-amber-50" },
+    { range: "9-11×", color: colors[9], bg: "bg-pink-50" },
+    { range: "13-16×", color: colors[13], bg: "bg-rose-50" },
+    { range: "20-24×", color: colors[20], bg: "bg-red-100" },
   ];
+  return (
+    <div className="mb-4 flex flex-wrap gap-3 text-xs">
+      {legendItems.map((item) => (
+        <div key={item.range} className="flex items-center gap-1.5">
+          <div className="h-4 w-8 rounded" style={{ background: item.color }} />
+          <span className="text-zinc-400">{item.range}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function ScoringPage() {
+  // Group hands by multiplier
+  const groups: { mult: number; hands: HandRow[] }[] = [];
+  for (const hand of HANDS) {
+    const g = groups.find((g) => g.mult === hand.mult);
+    if (g) g.hands.push(hand);
+    else groups.push({ mult: hand.mult, hands: [hand] });
+  }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <section>
         <h1 className="mb-2 text-3xl font-bold">Scoring Table</h1>
         <p className="text-zinc-400">
-          All 23 recognized winning hand types with their multipliers. Hand types
-          can usually be combined (multiply the multipliers).
+          Complete Chinese Mahjong scoring reference with visual tile examples.
+          Multiplier × 2 base point.
         </p>
       </section>
 
-      {/* Notes */}
-      <section className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-yellow-800 bg-yellow-900/20 p-4">
-          <h3 className="mb-1 text-sm font-semibold text-yellow-300">📋 Notes</h3>
-          <ul className="space-y-1 text-xs text-zinc-400">
-            <li>• Kong bonuses are separate — added to hand score, not multiplied.</li>
-            <li>• Exposed Kong (明杠) = 1 pt each. Concealed Kong (暗杠) = 2 pts each. Direct Kong (点杠) = 3 pts from discarder.</li>
-            <li>• Multiple hand types multiply together (with exceptions).</li>
-            <li>• Seven Pairs does not stack with All Triplets / Four Happiness.</li>
-          </ul>
-        </div>
-        <div className="rounded-xl border border-yellow-800 bg-yellow-900/20 p-4">
-          <h3 className="mb-1 text-sm font-semibold text-yellow-300">🎯 Bonus Rules</h3>
-          <ul className="space-y-1 text-xs text-zinc-400">
-            <li>• Robbing the Kong: robber wins, the robbed player pays all</li>
-            <li>• Bottom of the Sea (last tile): hand multiplier ×2</li>
-            <li>• Flower on Kong: hand multiplier ×2</li>
-            <li>• Both Sea + Kong: hand multiplier ×4</li>
-          </ul>
+      {/* Legend */}
+      <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
+        <h3 className="mb-2 text-sm font-semibold text-zinc-300">🎨 Color Legend</h3>
+        <Legend colors={COLORS} />
+        <div className="flex flex-wrap gap-4 text-xs text-zinc-500">
+          <span>Base point: 2</span>
+          <span>Payout = multiplier × 2</span>
+          <span>Self-draw: each opponent pays ×2</span>
+          <span>Discard: discarder pays ×2</span>
         </div>
       </section>
 
-      {/* Scoring Table */}
+      {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-zinc-700 bg-zinc-800/50 text-left">
-              <th className="sticky top-12 w-10 px-2 py-3 text-center text-zinc-500">#</th>
-              <th className="px-3 py-3 text-zinc-300">Hand Name</th>
-              <th className="w-20 px-3 py-3 text-center text-zinc-300">Multiplier</th>
-              <th className="hidden px-3 py-3 text-zinc-400 sm:table-cell">Description</th>
+              <th className="w-14 px-2 py-3 text-center text-zinc-400">×</th>
+              <th className="px-3 py-3 text-zinc-300">Hand Type</th>
+              <th className="px-3 py-3 text-zinc-300">Tile Example</th>
+              <th className="hidden px-3 py-3 text-zinc-300 sm:table-cell">Description</th>
             </tr>
           </thead>
           <tbody>
-            {hands.map((h) => (
-              <tr
-                key={h.n}
-                className={`border-b border-zinc-800 transition hover:bg-zinc-800/30 ${
-                  h.mult === "50×"
-                    ? "bg-red-900/10"
-                    : parseInt(h.mult) >= 20
-                      ? "bg-yellow-900/10"
-                      : ""
-                }`}
-              >
-                <td className="px-2 py-2.5 text-center text-zinc-600">{h.n}</td>
-                <td className="px-3 py-2.5 font-medium text-white">
-                  {h.name}
-                  {h.n === 1 && <span className="ml-2 text-xs text-green-400">Common</span>}
-                  {h.n === 4 && <span className="ml-2 text-xs text-green-400">Common</span>}
-                  {h.n === 22 && <span className="ml-2 text-xs text-red-400">Top</span>}
-                  {h.n === 23 && <span className="ml-2 text-xs text-red-400">Top</span>}
-                </td>
-                <td className="px-3 py-2.5 text-center font-bold">
-                  <span
-                    className={
-                      h.mult === "50×"
-                        ? "text-red-400"
-                        : parseInt(h.mult) >= 20
-                          ? "text-yellow-400"
-                          : parseInt(h.mult) >= 10
-                            ? "text-orange-400"
-                            : "text-zinc-300"
-                    }
-                  >
-                    {h.mult}
-                  </span>
-                </td>
-                <td className="hidden px-3 py-2.5 text-zinc-400 sm:table-cell">
-                  {h.desc}
-                </td>
-              </tr>
-            ))}
+            {groups.map((group) =>
+              group.hands.map((hand, idx) => (
+                <tr
+                  key={`${hand.name}-${idx}`}
+                  className="border-b border-zinc-800 transition hover:bg-zinc-800/30"
+                >
+                  {idx === 0 ? (
+                    <td
+                      className="px-2 py-3 text-center text-lg font-bold text-white"
+                      rowSpan={group.hands.length}
+                      style={{
+                        background: COLORS[hand.mult] || "#888",
+                        minWidth: 48,
+                      }}
+                    >
+                      {hand.mult}×
+                    </td>
+                  ) : null}
+                  <td className="px-3 py-2.5 font-medium text-white">
+                    {hand.engName}
+                    <br />
+                    <span className="text-xs text-zinc-500">{hand.name}</span>
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-2">
+                    <div className="flex flex-wrap gap-0.5">
+                      {hand.tiles.map((code, ti) => (
+                        <img
+                          key={`${code}-${ti}`}
+                          src={tileCodeToPath(code)}
+                          alt={code}
+                          className="inline-block h-10 w-8 object-contain"
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  </td>
+                  <td className="hidden px-3 py-2.5 text-zinc-400 sm:table-cell">
+                    {hand.desc}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
 
-      {/* Kong scoring */}
+      {/* Notes */}
       <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-        <h2 className="mb-3 text-lg font-bold text-white">Kong Payouts</h2>
-        <p className="mb-3 text-sm text-zinc-400">
-          Kong bonuses are paid separately — not multiplied with your hand score.
-        </p>
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3 text-center">
-            <p className="text-lg font-bold text-green-400">1 pt</p>
-            <p className="text-xs text-zinc-400">Exposed Kong (明杠)</p>
-            <p className="mt-1 text-xs text-zinc-600">Each opponent pays</p>
-          </div>
-          <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-3 text-center">
-            <p className="text-lg font-bold text-yellow-400">2 pts</p>
-            <p className="text-xs text-zinc-400">Concealed Kong (暗杠)</p>
-            <p className="mt-1 text-xs text-zinc-600">Each opponent pays</p>
-          </div>
-          <div className="rounded-lg border border-red-700 bg-red-900/10 p-3 text-center">
-            <p className="text-lg font-bold text-red-400">3 pts</p>
-            <p className="text-xs text-zinc-400">Direct Kong (点杠)</p>
-            <p className="mt-1 text-xs text-zinc-600">Only the discarder pays</p>
-          </div>
-        </div>
-        <p className="mt-3 rounded-lg border border-yellow-700 bg-yellow-900/20 p-2 text-xs text-yellow-300">
-          💡 Kong points are <strong>not multiplied</strong> — they&apos;re added directly to your hand score.
-        </p>
+        <h2 className="mb-3 text-lg font-bold text-white">Notes</h2>
+        <ul className="space-y-2 text-sm text-zinc-400">
+          <li>• {`Robbing a Kong / Kong on self-draw: the robbed player pays all`}</li>
+          <li>• {`Thirteen Orphans can rob a concealed kong`}</li>
+          <li>• {`False win (诈胡): pay according to pending multiplier`}</li>
+          <li>• {`Kong bonuses are separate — 1pt (exposed), 2pt (concealed), 3pt (direct from discarder)`}</li>
+          <li>• {`Seven Pairs, Luxury Seven Pairs, and Thirteen Orphans don't count as concealed hand`}</li>
+          <li>• {`Multiple hand types multiply together (with exceptions)`}</li>
+        </ul>
       </section>
 
       <div className="flex justify-between border-t border-zinc-800 pt-6">
-        <a href="/winning" className="text-sm text-zinc-500 transition hover:text-white">← Winning</a>
-        <a href="/glossary" className="rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-700">Next: Glossary →</a>
+        <a href="/winning" className="text-sm text-zinc-500 transition hover:text-white">
+          ← Winning
+        </a>
+        <a
+          href="/glossary"
+          className="rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-700"
+        >
+          Next: Glossary →
+        </a>
       </div>
     </div>
   );

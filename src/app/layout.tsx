@@ -22,7 +22,7 @@ const navLinks = [
   { href: "/game", label: "Game Setup" },
   { href: "/operations", label: "Play" },
   { href: "/winning", label: "Winning" },
-  { href: "/scoring-chart.html", label: "Scoring" },
+  { href: "/scoring", label: "Scoring" },
   { href: "/glossary", label: "Glossary" },
 ];
 

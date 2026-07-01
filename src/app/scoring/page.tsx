@@ -152,7 +152,7 @@ export default function ScoringPage() {
                           key={`${code}-${ti}`}
                           src={tileCodeToPath(code)}
                           alt={code}
-                          className="inline-block object-contain" style={{width:28,height:36}}
+                          className="inline-block object-contain" width={28} height={36}
                           loading="lazy"
                         />
                       ))}
